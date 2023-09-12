@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 
 import { authActions } from '_store';
+import { getIpAddress } from '_helpers';
 
 export { Login };
 
@@ -22,8 +23,10 @@ function Login() {
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
 
-    function onSubmit({ username, password }) {
-        return dispatch(authActions.login({ username, password }));
+    async function onSubmit({ username, password }) {
+        //Get IP address
+        const ip = await getIpAddress();
+        return dispatch(authActions.login({ username, password, ip }));
     }
 
     return (

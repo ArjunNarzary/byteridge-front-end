@@ -2,13 +2,17 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { authActions } from '_store';
+import { getIpAddress } from '_helpers';
 
 export { Nav };
 
 function Nav() {
     const auth = useSelector(x => x.auth.value);
     const dispatch = useDispatch();
-    const logout = () => dispatch(authActions.logout());
+    const logout = async () =>{ 
+         const ip = await getIpAddress();
+        return dispatch(authActions.logout({ id: auth?._id, ip }));
+    };
 
     // only show nav when logged in
     if (!auth) return null;
@@ -18,6 +22,7 @@ function Nav() {
             <div className="navbar-nav">
                 <NavLink to="/" className="nav-item nav-link">Home</NavLink>
                 <NavLink to="/users" className="nav-item nav-link">Dashboard</NavLink>
+                {auth?.role === "AUDITOR" && <NavLink to="/audit" className="nav-item nav-link">Audit</NavLink>}
                 <button onClick={logout} className="btn btn-link nav-item nav-link">Logout</button>
             </div>
         </nav>

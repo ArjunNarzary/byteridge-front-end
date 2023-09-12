@@ -74,7 +74,8 @@ function Register() {
                     <div className="mb-3">
                         <label className="form-label">Role</label>
                         <select name="role" type="" {...register('role')} className={`form-control ${errors.role ? 'is-invalid' : ''}`} >
-                            <option value="User" selected={true}>User</option>
+                            <option value="USER" selected={true}>User</option>
+                            <option value="AUDITOR">Audit</option>
                         </select>
                         <div className="invalid-feedback">{errors.role?.message}</div>
                     </div>

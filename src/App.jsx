@@ -1,10 +1,11 @@
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 
 import { history } from '_helpers';
-import { Nav, Alert, PrivateRoute } from '_components';
+import { Nav, Alert, PrivateRoute, AuditorRoute } from '_components';
 import { Home } from 'home';
 import { AccountLayout } from 'account';
 import { UsersLayout } from 'users';
+import { AuditorsLayout } from 'auditors';
 
 
 export { App };
@@ -25,6 +26,10 @@ function App() {
                     <Route element={<PrivateRoute />}>
                         <Route path="/" element={<Home />} />
                         <Route path="users/*" element={<UsersLayout />} />
+                        {/* Auditor private route */}
+                        <Route element={<AuditorRoute />}>
+                            <Route path="audit/*" element={<AuditorsLayout />} />
+                        </Route>
                     </Route>
                     {/* public */}
                     <Route path="account/*" element={<AccountLayout />} />
